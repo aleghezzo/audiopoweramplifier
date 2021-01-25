@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name IRFP240)(type Legacy)(uri ${KIPRJMOD}/footprint.pretty/IRFP240.lib)(options "")(descr ""))
+  (lib (name MJ1-2503A)(type Legacy)(uri ${KIPRJMOD}/footprint.pretty/MJ1-2503A.lib)(options "")(descr ""))
+)
