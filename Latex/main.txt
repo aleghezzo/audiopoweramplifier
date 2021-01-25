@@ -1,0 +1,426 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\graphicspath{ {./graficos-tp1/} }
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+% !TeX spellcheck = es
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  %%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 10\p@
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  %%%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
+\begin{document}
+\begin{titlepage}
+	\pagestyle{fancy}
+	\centering
+			\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+	\includegraphics[width=0.15\textwidth]{utn}\par
+		\textcolor{red}{\rule{15cm}{0.2mm}}
+		\par\vspace{1cm}
+
+	{\scshape\LARGE Universidad Tecnológica Nacional\\Regional Buenos Aires \par}
+	\vspace{1cm}
+	{\scshape\Large Electrónica Aplicada II\par}
+	\vspace{1cm}
+	{\huge\bfseries Proyecto Integrador: Amplificador de Audio de Baja Potencia\par}
+	\vspace{1cm}
+	\begin{flushleft}
+	Grupo N$^{\circ} 1$ - Curso: R4053\\ \vspace{0.1cm}
+	\begin{tabular}{ |c|c|c| } 
+	 \hline
+	 Alumno &  Legajo\\
+	\hline
+	 Lucas Manuel Carra &  152624-8\\
+	 \hline
+	 Alessandro Ghezzo &  159281-6\\
+	 \hline
+	 Juan Boirazian &  158918-0\\
+	 \hline
+	\end{tabular}
+	\vspace{2cm}
+	\vfill
+	Docentes\par
+	Ing.~Gustavo Randazo\\
+	Ing.~Eduardo Jose Marchionni\\
+	\end{flushleft}
+	\textcolor{red}{\rule{15cm}{0.2mm}}
+
+\end{titlepage}
+\tableofcontents
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\begin{flushleft}
+\chapter{Introduccion}
+\section{Consignas}
+\subsection{Generales}
+- Consignas generales a cumplir para todos los grupos de laboratorio: \par
+\hspace{0.2cm} $ \bullet $ Todos los amplificadores en su diseño deben cumplir con las siguientes exigencias: \\
+\hspace{1cm}   $ \bullet $ THD  $ \leq \% $ 1 \\
+\hspace{1cm}   $ \bullet $ Fcif $ \geq $ 20 Hz \\
+\hspace{1cm}   $ \bullet $ Fcsf $ \geq $ 20 KHz \\
+\hspace{1cm}   $ \bullet $ Riaf $ \geq $ 80 K $ \Omega $ \\
+- Cada grupo de trabajo deberá armar y probar el amplificador de audio según se le solicite en la consigna respectiva y simular tanto el equipo que arme como el “recíproco” que le toque, en lo que respecta a su etapa de salida. 
+\\ Por ejemplo: si el amplificador para armar tiene una etapa de salida bipolar, el informe debe contemplar la simulación tanto del que armó, como el de una etapa de salida con MOS de enriquecimiento. Además, en dicho informe, debe haber una tabla  comparativa de los datos obtenidos, tanto medidos, como simulados. \\
+\vspace{0.1cm}
+\subsection{Particulares}
+\hspace{0.2cm}   - Datos para el armado y puesta a punto del amplificador de audio: \\
+\hspace{1cm}   $ \bullet $ Po = 10W \\
+\hspace{1cm}   $ \bullet $ Se = 200mV \\
+\hspace{1cm}   $ \bullet $ Tamb = 40 ºC \\
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\hspace{1cm}   $ \bullet $ RL =  8 $ \Omega $. \\
+\hspace{1cm}   $ \bullet $ Con entrada NORMAL  y  ETAPA DE SALIDA MOSFET. \\
+\hspace{0.2cm}   $ \bullet $ Informe del TP INTEGRADOR con simulaciones del circuito con salida MOS  y con salida BIPOLAR como se aclara en párrafos precedentes.   
+\section{Objetivo}
+
+$ \bullet $ Obtener algunos datos para observar semejanzas y  diferencias en los resultados previstos y otros datos de interés. 
+
+$ \bullet $ Verificar la teoría y cálculos con las simulaciones.
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\chapter{Diseño del Amplificador}
+
+\section{Descripción}
+- Nuestro diseño se basa en 3 etapas: \\
+\hspace{1cm}   $ \bullet $ Etapa de Pre-excitadora \\
+\hspace{1cm}   $ \bullet $ Etapa Amplificadora \\
+\hspace{1cm}   $ \bullet $ Etapa de Salida \\
+\begin{center}
+$\boxed { \includegraphics[width=0.5\textwidth]{DiagramaEnBloque} }$\\
+\textit{Diagrama en bloque}
+\end{center}
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\section{Etapa de Salida}
+- Comenzamos nuestro diseño pensando en la etapa de salida, siendo esta la más importante en términos de potencia que maneja y disipación de energía. \\
+- El requerimiento en el que nos basamos será la potencia a la cual someteremos al parlante del amplificador, representado por una resistencia de carga de 8 $ \Omega $. \\
+- Elejimos una de transistores complementarios en modo colector común para que cada uno opere sobre medio ciclo de la señal de entrada, de esta manera mantenemos el consumo estático nulo (o muy bajo dependiendo de si utilizamos clase B o AB - se explicará más adelante en el proyecto) y generamos una ganancia de corriente sobre la carga para llegar a la potencia requerida.
+
+\begin{center}
+$\boxed { \includegraphics[width=0.5\textwidth]{EtapaSalidaTBJ} }$
+$\boxed { \includegraphics[width=0.313\textwidth]{EtapaSalidaMOS} }$\par
+\textit{Etapas de Salida TBJ y MOS}
+\end{center}
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\subsection{Calculo de la Tensión y Corriente de Salida Máxima}
+\subsubsection{Par de Transistor Bipolar de Juntura}
+- Nuestro requerimiento de Potencia de salida es de 10 W.\\
+- Utilizamos esto para calcular la tensión de salida máxima y la fuente que vamos a necesitar.\\ \vspace{0.2cm}
+$ Po = \frac{Vo_{ef}^2}{R_L} = 10$ \\ \vspace{0.2cm}
+$ Vo_{ef} = \frac{Vo_{max}}{\sqrt[2]{2}} $ \\ \vspace{0.2cm}
+$ Vo_{max} = \sqrt[2]{P_o \times R_L \times 2} = 12.65 V $ \\ \vspace{0.2cm}
+$ Io_{max} = \frac{12.65}{8} = 1.58 A $ \\ \vspace{0.2cm}
+
+Para el calculo de la tensión de la fuente consideramos un semi-ciclo de la señal donde Q1 conduce y Q2 está al corte:\\
+\begin{center}
+$\boxed { \includegraphics[width=0.3\textwidth]{SalidaTBJCalculoVCC} }$ \\
+\vspace{0.2cm}
+$\boxed { Vcc = 2 \times V+ = 2 \times (1.58A \times (8 + 0.39 ) + V_{sat} ) * FdS = 35V } $ \\
+
+\end{center}
+$V_{sat} = 2.0 Vdc (MAX) @ I_C = 3 A_{DC} $ \\
+FdS: Factor de seguridad - 1.15 \\
+\vspace{1cm}
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\subsubsection{Par de Transistor MOS}
+- COMPLETAR
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\subsection{Calculo de las Resistencias de Protección térmica}
+- Las resistencias a ambos lados de los transistores de salida son Termistores del tipo PTC (Positivite temperature coefficient$^1 $ ), que van a aumentar su impedancia a medida que la temperatura aumente para mantener la corriente constante.\\
+\vspace{0.2cm}
+- Se calculan como:\\
+\hspace{0.5cm} $\bullet Rp_{max}$ es un 10\% de la carga.\\
+\hspace{0.5cm} $\bullet Rp_{min}$ es un 5\% de la carga.\\
+\vspace{0.4cm}
+$ \boxed{ 0.4 < Rp < 0.8 } $ \\
+\vspace{0.4cm}
+El valor comercial más proximo es 0.39 - Es aceptable.
+\begin{center}
+$ \boxed{ Rp1 = Rp2 = 0.39 } $ \\
+\end{center}
+
+\subsubsection{Potencia disipada}
+
+La potencia que van a disipar va a ser de:
+\begin{center}
+$ \boxed{(\frac{Io_{max}}{2})^2 \times Rp = 0.48W } $ \\
+Tolerancia Comercial de 5W
+\end{center}
+
+1 - Termistores PTC - https://en.wikipedia.org/wiki/Thermistor
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\subsection{Elección de los transistores}
+\subsubsection{Par de Transistor Bipolar de Juntura}
+Elejimos los transistores de salida teniendo en cuenta 4 factores: \\ \vspace{0.2cm}
+\hspace{1cm}	$ \bullet { Ic_{max} } $\\
+\hspace{1cm}	$ \bullet { BV_{ceo} } $\\
+\hspace{1cm}	$ \bullet { Pdav_{max} } $\\
+\hspace{1cm}	$ \bullet { hFE } $\\
+\vspace{0.2cm}
+El par complementario TIP 122 / TIP 127 de tipo D'Arlington cumple todos nuestros requerimientos y nos da un hFE alto.
+
+- COMPLETAR CON LOS CALCULOS
+
+\subsubsection{Par de Transistor MOS}
+- COMPLETAR
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\subsection{Multiplicador de Tensión}
+- El efecto de distorsión por cruce ocurre en los amplificadores de tipo B cuando al variar la señal de entrada se genera la transición de corte a la zona activa. Dado que el transistor de que pasa de corte a activo tiene que superar su tensión de umbral $V_{SAT} $ sin una pre-polarización se produce el siguiente efecto que puede ser desagradable para el oido (como un zumbido):\\
+\begin{center}
+$ \boxed { \includegraphics[width=0.3\textwidth]{Distorcionporcruce}   } $
+\end{center}
+
+- Para evitarlo, lo que hacemos es mantener una diferencia de potencial entre las bases de ambos transistores muy cercano a su 
+$V_{SAT} $, de esta manera se subsanar el efecto a costo de un consumo de corriente estático relativamente bajo. \\
+- Existen varias maneras de hacerlo, desde un resistor variable, varios diodos o el 'multiplicador' en base a un BJT, elegimos ir por este último.\\
+- La leve polarización hace que denominemos al amplificador como clase AB.
+
+\subsubsection{Potencia disipada}
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\subsection{Diseño final (Etapa de Salida)}
+\begin{center}
+$\boxed { \includegraphics[width=0.5\textwidth]{EtapaSalidaFinal} }$ \\
+\end{center}
+El diseño final de la etapa de salida es el siguiente. \\ \vspace{0.2cm}
+\hspace{1cm}	$ \bullet $ Par complementario NPN - PNP (Clase AB) \\
+\hspace{1cm}	$ \bullet $ Multiplicador de tensión (Clase AB). \\
+\hspace{1cm}	$ \bullet $ Termistores de protección termica. \\
+\hspace{1cm}	$ \bullet $ Carga de 8 Ohm (Parlante) \\
+
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\section{Etapa Amplificadora}
+- El objetivo de esta etapa es tomar la señal ya pre-amplificada por la excitadora / entrada y llevarla al nivel de tensión final que vamos a necesitar en la salida. \\
+- Elejimos una topología de tipo Emisor Común Degenerado (también coocida como RE sin puentear):
+
+\begin{center}
+$\boxed { \includegraphics[width=0.5\textwidth]{EtapaAmplificadoraTBJ} }$ \\
+\end{center}
+
+- Elegimos el BC547B más que nada por accesibilidad y $h_{FE} $ suficiente.
+
+\subsection{Elección de Componentes y Polarización}
+
+\subsection{Potencia disipada}
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\section{Etapa Pre-excitadora}
+- El objetivo de la etapa pre-excitadora es tomar la señal en tensiones muy bajas (máx 200mV) y llevarlas a un nivel superior sin consumir mucha potencia antes de pasarselo a la etapa amplificadora. \\
+- A su vez, debe proveer una resistencia de entrada de al menos 80K. \\
+- Elegimos una topología de tipo Emisor Común Degenerado (también conocida como RE sin puentear) que nos va a brindar una ganancia de tensión de entre 5 y 10 veces.
+
+\begin{center}
+$\boxed { \includegraphics[width=0.5\textwidth]{EtapaEntradaTBJ} }$ \\
+\end{center}
+
+\subsection{Elección de Componentes y Polarización}
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\section{Realimentación Negativa}
+\subsection{Identificación General}
+-
+\subsection{Malla Beta}
+-
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+\section{Diseño Final}
+El resultado obtenido es el siguiente:
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{Final} }$ \\
+\end{center}
+
+\chapter{Simulación}
+\subsection{Preamplifcación}
+- Simulamos la entrada en conjunto con la salida de la etapa de excitación. \\
+- La señal experimenta una ganancia de tensión de 12 veces. \\ \vspace{0.2cm}
+
+$ Avsim_{pre} = \frac{2.45V}{200mV} = 12 $ 
+
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{VoPre} }$ \\
+\end{center}
+\textit{ {\tiny Nota: A todas las señales involucradas en la gráfica se les removió el nivel de continua para facilitar su visibilidad.} }
+
+\subsection{Amplificación}
+- Agregamos la señal de la etapa amplificadora. \\
+- La señal experimenta una ganancia de tensión de 4.03 veces, dandonos un total de veces 48 veces. \\ \vspace{0.2cm}
+
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{VoAmp} }$ \\
+\end{center}
+\textit{ {\tiny Nota: A todas las señales involucradas en la gráfica se les removió el nivel de continua para facilitar su visibilidad.} }
+
+\subsection{Salida}
+- Agregamos la señal de salida.
+- Miramos tanto tensión como corriente. \\
+
+\begin{center}
+Tensión de salida
+$\boxed { \includegraphics[width=1\textwidth]{Vo} }$ \\
+\end{center}
+
+- Como es esperado en un colector común, la ganancia de tensión es menor a 1, también observamos una pérdida un poco mayor en uno de los semiciclos de la señal.\\
+\hspace{1cm} Esto se puede deber a:\\
+\hspace{1.5cm} $ \bullet $ El hecho de que el par de salida sea NPN - PNP y el transistor PNP tenga un peor rendimiento que su contraparte.\\
+\hspace{1.5cm} $ \bullet $ Mala prepolarización de los transistores en el multiplicador de tensión.\\
+\vspace{0.5cm}
+\hspace{1cm}- Particularmente me inclino por la primer opción.\\
+\hspace{1cm}- Esto podría mejorarse cambiando el transistor PNP por un falso PNP. \\ 
+\begin{center}
+$\boxed { \includegraphics[width=0.3\textwidth]{FalsoPNP} }$
+\end{center}
+
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{Corriente} }$ \\
+\end{center}
+
+- La corriente se ve bastante bien, los transistores adquieren rápidamente una corriente alrededor de 67mA en el punto donde se cruza el transistor que va al corte y el que pasa a zona activa por lo que se mitiga el efecto de distorsión por cruce y el transistor que va al corte mantiene una corriente bajisima de 37uA.\\
+- La corriente de salida máxima observada es de 1.16A, relativamente cercana a nuestra primera proyección de 1.5A.\\
+
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{Potencia} }$ \\
+\end{center}
+
+- En la potencia observamos picos de:\\
+\hspace{1cm}$ \bullet $ 10.9 W\\
+\hspace{1cm}$ \bullet $ 9 W\\
+- El mismo razonamiento dado en la gráfica de tensión es aplicado.\\
+- De cualquier manera nos encontramos dentro de el requerimiento de 10W +/- 1\%.
+
+\subsection{Potencia}
+\subsubsection{Consumo estático de los transistores}
+
+\begin{tabular}{ | c | c | c | c | }
+ \hline
+ Q & $ V_{CE} $ & $ I_{CQ} $ & $ V_{BE} $ \\ 
+ \hline
+ Entrada EC Degenerado & 17.2 V & 1.11mA & 4.93 V \\  
+ \hline
+ Seguidor CE Entrada & 14 V & 954uA & 21.5 V \\
+ \hline
+ Amplificador EC Degenerado & 14V & 1.69mA & 3.71 V\\
+ \hline
+ Salida NPN & 16.6 & 1.05A (MAX) & 19.63 V\\
+ \hline
+ Salida PNP & 18.31 & 1.16A (MAX) & 17.1V\\
+ \hline
+\end{tabular}
+
+\subsubsection{Consumo estático resistores}
+
+\subsubsection{Consumo total}
+
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\subsection{Distorsión Armónica}
+La distorsión armonica se calcula a partir de: \\ \vspace{0.2cm}
+\hspace{1cm} $\bullet $ La amplitud de la armonica fundamental \\ \vspace{0.2cm}
+\hspace{1cm} $\bullet $ La amplitud de las amplitudes de las armonicas siguientes. \\ \vspace{0.2cm}
+
+\[ THD = \frac{\sqrt[2]{\sum\limits_{i=2}^n V_{n-rms}^2}}{V_{fund-rms}}  \]
+
+Tomamos la salida generada por una señal senoidal de 1Khz, y aplicandole la FFT observamos lo siguiente:
+
+\begin{center}
+$\boxed { \includegraphics[width=1\textwidth]{Distorsion} }$ \\
+\end{center}
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+Nuestra armónica fundamental presenta una amplitud de 6.27V. \\
+Y obtenemos pequeños picos de armonicas nuevas en:\\
+\hspace{0.5cm} $\bullet $ 2KHz: 99mV \\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ 3KHz: 17mV \\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ 4KHz: 7mV \\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ 5KHz: 14mV \\ \vspace{0.2cm}
+Entonces:\\ \vspace{0.2cm}
+
+\[ THD = \frac{\sqrt[2]{(99mV)^2 + (17mV)^2 + (7mV)^2 + (14mV)^2 + }}{6.27V} = 0.016 \]
+
+Porcentualmente tenemos una distorción del 1.6\%, mayor al requerimiento de 1\% y deberíamos re-evaluar nuestro diseño.
+
+Considerando que es la simulación, las posibles soluciones serían:\\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ Reevaluar la distorsión por cruce en la etapa de salida variando la polarización de las bases para que se encuentren más cerca de la zona activa. \\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ Investigar posibles no-linealidades en las etapas amplificadoras. \\ \vspace{0.2cm}
+\hspace{0.5cm} $\bullet $ Aumentar la realimentación negativa. \\ \vspace{0.2cm}
+
+
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+\chapter{Temperatura}
+\vfill
+\textcolor{red}{\rule{15cm}{0.2mm}}\par \vspace{0.5cm}
+\newpage
+
+
+\chapter{Bibliografía}
+- Diseño De Amplificadores De Potencia De Audio - Norberto Muiño \\
+- Designing Audio Power Amplifiers - Bob Cordell (2010) \\
+- Microelectronic Circuits - Sedra Smith (7th Edition)
+\end{flushleft}
+
+
+\end{document}

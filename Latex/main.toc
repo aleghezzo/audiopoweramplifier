@@ -1,0 +1,42 @@
+\babel@toc {spanish}{}
+\contentsline {chapter}{\numberline {1}Introduccion}{3}
+\contentsline {section}{\numberline {1.1}Consignas}{3}
+\contentsline {subsection}{\numberline {1.1.1}Generales}{3}
+\contentsline {subsection}{\numberline {1.1.2}Particulares}{3}
+\contentsline {section}{\numberline {1.2}Objetivo}{4}
+\contentsline {chapter}{\numberline {2}Dise\IeC {\~n}o del Amplificador}{5}
+\contentsline {section}{\numberline {2.1}Descripci\IeC {\'o}n}{5}
+\contentsline {section}{\numberline {2.2}Etapa de Salida}{6}
+\contentsline {subsection}{\numberline {2.2.1}Calculo de la Tensi\IeC {\'o}n y Corriente de Salida M\IeC {\'a}xima}{7}
+\contentsline {subsubsection}{Par de Transistor Bipolar de Juntura}{7}
+\contentsline {subsubsection}{Par de Transistor MOSFET}{8}
+\contentsline {subsection}{\numberline {2.2.2}Calculo de las Resistencias de Protecci\IeC {\'o}n t\IeC {\'e}rmica}{9}
+\contentsline {subsubsection}{Potencia disipada}{9}
+\contentsline {subsection}{\numberline {2.2.3}Elecci\IeC {\'o}n de los transistores}{10}
+\contentsline {subsubsection}{Par de Transistor Bipolar de Juntura}{10}
+\contentsline {subsubsection}{Par de Transistor MOSFET}{10}
+\contentsline {subsection}{\numberline {2.2.4}Multiplicador de Tensi\IeC {\'o}n}{11}
+\contentsline {subsubsection}{Calculo}{12}
+\contentsline {subsection}{\numberline {2.2.5}Dise\IeC {\~n}o Preliminar}{13}
+\contentsline {subsubsection}{TBJ}{13}
+\contentsline {subsubsection}{MOSFET}{14}
+\contentsline {section}{\numberline {2.3}Etapa Amplificadora}{15}
+\contentsline {section}{\numberline {2.4}Etapa Pre-excitadora}{16}
+\contentsline {section}{\numberline {2.5}Realimentaci\IeC {\'o}n Negativa}{16}
+\contentsline {subsection}{\numberline {2.5.1}Identificaci\IeC {\'o}n General}{16}
+\contentsline {subsection}{\numberline {2.5.2}Malla Beta}{18}
+\contentsline {section}{\numberline {2.6}Dise\IeC {\~n}o Final}{19}
+\contentsline {chapter}{\numberline {3}Simulaci\IeC {\'o}n}{20}
+\contentsline {subsection}{\numberline {3.0.1}Preamplifcaci\IeC {\'o}n}{20}
+\contentsline {subsection}{\numberline {3.0.2}Amplificaci\IeC {\'o}n}{21}
+\contentsline {subsection}{\numberline {3.0.3}Salida}{22}
+\contentsline {subsection}{\numberline {3.0.4}Distorsi\IeC {\'o}n Arm\IeC {\'o}nica}{25}
+\contentsline {subsection}{\numberline {3.0.5}Respuesta en frecuencia}{27}
+\contentsline {subsection}{\numberline {3.0.6}Resistencia de entrada}{28}
+\contentsline {chapter}{\numberline {4}Temperatura}{29}
+\contentsline {chapter}{\numberline {5}Dise\IeC {\~n}o CAD}{30}
+\contentsline {subsection}{\numberline {5.0.1}Software}{30}
+\contentsline {subsection}{\numberline {5.0.2}Esquem\IeC {\'a}tico}{30}
+\contentsline {subsection}{\numberline {5.0.3}PCB}{31}
+\contentsline {subsection}{\numberline {5.0.4}Render 3D}{32}
+\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{34}
